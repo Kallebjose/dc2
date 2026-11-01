@@ -1,20 +1,16 @@
 import { Peer } from 'peerjs';
 
-// Configuração WebRTC forçando STUN público do Google para NAT Traversal
 export const peerConfig = {
   config: {
     iceServers: [
       { urls: 'stun:stun.l.google.com:19302' },
       { urls: 'stun:stun1.l.google.com:19302' },
-      { urls: 'stun:stun2.l.google.com:19302' }
-    ],
-    // Force aggressive ICE generation
-    iceTransportPolicy: 'all',
+      { urls: 'stun:global.stun.twilio.com:3478' }
+    ]
   },
-  debug: 1
+  debug: 2 // Aumentei o debug para vermos erros no console (F12) se houver
 };
 
 export const createPeer = (id = null) => {
-  if (id) return new Peer(id, peerConfig);
-  return new Peer(peerConfig);
+  return id ? new Peer(id, peerConfig) : new Peer(peerConfig);
 };
