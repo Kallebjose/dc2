@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Zero-delay specific optimizations for smooth rendering */
+video {
+  /* Impede filtragens lentas de interpolação no redimensionamento */
+  image-rendering: optimizeSpeed; 
+}
