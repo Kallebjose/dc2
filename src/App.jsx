@@ -78,8 +78,19 @@ function App() {
   const startStream = async () => {
     try {
       const stream = await navigator.mediaDevices.getDisplayMedia({
-        video: { frameRate: { ideal: 60, max: 60 }, displaySurface: 'monitor' },
-        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+        video: { 
+          // Limita a resolução para priorizar os 60 FPS e evitar gargalo de upload
+          width: { ideal: 1280, max: 1920 },
+          height: { ideal: 720, max: 1080 },
+          frameRate: { ideal: 60, max: 60 }, 
+          displaySurface: 'monitor' 
+        },
+        audio: { 
+          echoCancellation: false, 
+          noiseSuppression: false, 
+          autoGainControl: false,
+          sampleRate: 44100 // Taxa de amostragem padrão para evitar re-encoding de áudio
+        }
       });
       
       myStreamRef.current = stream;
